@@ -5,8 +5,16 @@ const container= document.querySelector('.container');
 const form= document.querySelector('form');
 form.addEventListener('submit',(e)=>{
    e.preventDefault();
-   let number= document.querySelector(".number").value;
-   createDim(number)
+   const inputField = document.querySelector(".number");
+   let number = inputField.value;
+   if(number>=1 && number <=100){
+      createDim(number)
+   }else{
+      alert('Please enter a number between 1 and 100!');
+      inputField.value='';
+      inputField.focus();
+   }
+   
 });
 
 function createDim(number){
