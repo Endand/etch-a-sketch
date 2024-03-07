@@ -2,28 +2,45 @@ const body=document.querySelector('body');
 const container= document.querySelector('.container');
 
 
-for(let i=0;i<16*16;i++){
+const form= document.querySelector('form');
+form.addEventListener('submit',(e)=>{
+   e.preventDefault();
+   let number= document.querySelector(".number").value;
+   createDim(number)
+});
+
+function createDim(number){
+   /*Resets container and make a new one every time dimension changes */
+   container.innerHTML = '';
+
+   /*Makes new divs based on the dimension given */
+   for(let i=0;i<number*number;i++){
       const square = document.createElement('div');
       square.classList.add('square');
       container.appendChild(square);
+   }
+
+   /*Arrange the divs to be n x n fashion */
+   const dim=50/number;
+   const squares= document.querySelectorAll('.square');
+   squares.forEach(square => {
+      square.style.height=`${dim}vw`;
+      square.style.width=`${dim}vw`;
+   
+      /*Makes squares change color on mouse hover */
+      square.addEventListener("mouseover",()=>{
+         changeColor(square);});
+   }); 
+   
 }
 
 body.appendChild(container);
+
 
 function changeColor(square){
    square.style.backgroundColor='#' + Math.floor(Math.random()*16777215).toString(16);
 }
 
-const squares= document.querySelectorAll('.square');
-squares.forEach(square=>{
-   square.addEventListener("mouseover",()=>{
-      changeColor(square);});
-})
 
-let number=16;
-const form= document.querySelector('form');
-form.addEventListener('submit',(e)=>{
-   e.preventDefault();
-   number= document.querySelector(".number").value;
-});
+
 
